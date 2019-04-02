@@ -3,6 +3,9 @@ package com.itqf.service.impl;
 import com.itqf.mapper.SysRoleMapper;
 import com.itqf.service.SysRoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,6 +49,7 @@ import java.util.List;
  * @Time: 下午3:38
  */
 @Service("sysRoleServiceImpl")
+@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor =RuntimeException.class )//隔离级别  传播行为  rollback-for
 public class SysRoleServiceImpl implements SysRoleService {
 
     //注入mapper

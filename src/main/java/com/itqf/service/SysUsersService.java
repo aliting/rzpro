@@ -7,6 +7,7 @@ import com.itqf.utils.ResultData;
 import com.itqf.utils.Sorter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * //                            _ooOoo_
@@ -56,5 +57,18 @@ public interface SysUsersService {
 
     public ResultData findByPage(Pager pager, String search
             , Sorter sorter);
+
+    List<SysUser> findLockAccount();
+
+    int unLockAccount(SysUser user);
+
+
+    R     findPieData();
+
+    R  findBarData();
+
+
+    List<Map<String,Object>> exportExcel();
+
 
 }

@@ -79,6 +79,7 @@ public class UserRealm extends AuthorizingRealm {
         info.addRoles(roles);
         info.addStringPermissions(perms);
         System.out.println("----->授权over!");
+
         return info;
     }
 

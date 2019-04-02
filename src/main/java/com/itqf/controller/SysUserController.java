@@ -3,6 +3,7 @@ package com.itqf.controller;
 import com.google.code.kaptcha.Producer;
 import com.itqf.dto.SysUserDTO;
 import com.itqf.entity.SysUser;
+import com.itqf.log.Mylog;
 import com.itqf.service.SysUsersService;
 import com.itqf.utils.*;
 import org.apache.shiro.SecurityUtils;
@@ -94,6 +95,9 @@ public class SysUserController {
             //2,把用户名和密码封装成UsernamePasswordToken对象
             UsernamePasswordToken token = new UsernamePasswordToken(sysUser.getUsername(),pwd);
 
+            if (sysUser.isRememberMe()){
+                token.setRememberMe(true);
+            }
             //3登录
             subject.login(token);//自定义Realm的认证方法
 
@@ -102,6 +106,7 @@ public class SysUserController {
 
             return R.ok();
         }catch(Exception e){
+            e.printStackTrace();
             s = e.getMessage();
         }
 
@@ -112,6 +117,7 @@ public class SysUserController {
     /**
      * bootstrapTable
      */
+    @Mylog(value = "用户列表",description = "分页显示用户")
     @RequiresPermissions("sys:user:list")
     @RequestMapping("/sys/user/list")
     public ResultData findUserByPage(Pager pager, String search
@@ -146,7 +152,8 @@ public class SysUserController {
 
     }
    // @RequiresPermissions("sys:user:select")
-    @RequestMapping("/sys/user/info")
+   @Mylog(value = "查询用户信息",description = "显示用户信息")
+   @RequestMapping("/sys/user/info")
     public  R userInfo(){
 
        // System.out.println("--->shiro中取出用户信息："+SecurityUtils.getSubject().getPrincipal());

@@ -45,6 +45,10 @@ var vm = new Vue({
         user:{}
     },
     methods:{
+        exportExcel:function(){
+            console.log("导出！");
+            location.href="http://10.9.21.64:8080/exportExcel";
+        },
         del: function(){
 
             //var rows = getSelectedRows();

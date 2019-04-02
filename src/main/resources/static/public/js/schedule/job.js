@@ -46,7 +46,7 @@ var vm = new Vue({
     methods:{
         del: function(){
 
-            doTask('jobId', '删除', 'job/del');
+            doTask('jobId', '删除', '/schedule/job/del');
         },
         resume: function(){
 

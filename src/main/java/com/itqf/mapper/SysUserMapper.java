@@ -2,8 +2,10 @@ package com.itqf.mapper;
 
 import com.itqf.entity.SysUser;
 import com.itqf.entity.SysUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface SysUserMapper {
     /**
@@ -93,4 +95,16 @@ public interface SysUserMapper {
      * @mbggenerated Mon Mar 25 14:59:37 CST 2019
      */
     int updateByPrimaryKey(SysUser record);
+
+    List<SysUser> findLockAccount();
+
+    int unLockAccount(SysUser user);
+
+
+    List<Map<String,Object>>     findPieData();
+
+    List<Map<String,Object>>  findBarData();
+
+    List<Map<String,Object>>  findUserForExport();
+
 }

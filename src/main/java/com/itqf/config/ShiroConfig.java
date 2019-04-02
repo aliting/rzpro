@@ -94,6 +94,8 @@ public class ShiroConfig {
         Cookie cookie = rememberMeManager.getCookie();
         cookie.setMaxAge(60*60*24*30);
 
+        securityManager.setRememberMeManager(rememberMeManager);
+
         return  securityManager;
     }
     //shiro注解在spring容器中生效
@@ -161,8 +163,10 @@ public class ShiroConfig {
          *                 /** = authc
          */
         map.put("/public/**","anon");//静态js  css
-        map.put("/json/**","anon");//假数据
+        //map.put("/json/**","anon");//假数据
+        map.put("/demo/**","anon");//练习页面
         map.put("/captcha.jpg","anon");//验证码
+        map.put("/del","anon");
         map.put("/sys/login","anon"); // 前端不是是ajax请求
         //map.put("/logout","logout");//退出过滤器 前端不能使用ajax退出
         //map.put("/sys/menu/*","perms[\"sys:menu\"]");

@@ -1,6 +1,7 @@
 package com.itqf.controller;
 
 import com.itqf.entity.SysMenu;
+import com.itqf.log.Mylog;
 import com.itqf.service.SysMenuService;
 import com.itqf.utils.R;
 import com.itqf.utils.ResultData;
@@ -64,6 +65,8 @@ public class SysMenuController {
      *     rows:[{},{}]
      * }
      */
+    @Mylog(value = "查询菜单信息",description = "分页查询并且按照名称查询菜单列表")
+
     @RequestMapping("/sys/menu/list")//?sort=menuId&order=asc&limiset=0
     /**
      * int limit , int offset:
@@ -77,16 +80,19 @@ public class SysMenuController {
         return  sysMenuService.findByPage(limit,offset,search,sort,order);
     }
 
+    @Mylog(value = "删除菜单",description = "根据菜单编号删除菜单")
     @RequiresPermissions("sys:menu:delete")
     @RequestMapping("/sys/menu/del")
     public R del(@RequestBody List<Long> ids){
 
         return sysMenuService.del(ids);
+
     }
 
     /**
      * 查询目录和菜单
      */
+    @Mylog(value = "查询菜单和目录",description = "查询菜单和目录")
     @RequiresPermissions("sys:menu:select")
     @RequestMapping("/sys/menu/select")
     public  R selectMenu(){
@@ -95,19 +101,20 @@ public class SysMenuController {
         return sysMenuService.selectMenu();
     }
 
+    @Mylog(value = "新增菜单,目录,按钮",description = "新增菜单,目录,按钮")
     @RequiresPermissions("sys:menu:save")
     @RequestMapping("/sys/menu/save")
     public R saveMenu(@RequestBody SysMenu sysMenu){
         return  sysMenuService.save(sysMenu);
     }
-
+    @Mylog(value = "查询菜单",description = "查询菜单")
     @RequiresPermissions("sys:menu:select")
     @RequestMapping("/sys/menu/info/{menuId}")//
     public R findMenu(@PathVariable long menuId){
 
      return  sysMenuService.findMenu(menuId);
     }
-
+    @Mylog(value = "修改菜单",description = "根据菜单编号修改菜单")
     @RequiresPermissions("sys:menu:update")
     @RequestMapping("/sys/menu/update")
     public R  update(@RequestBody SysMenu sysMenu){
@@ -148,6 +155,7 @@ public class SysMenuController {
      * }
      * @return
      */
+    @Mylog(value = "查询用户能访问的菜单",description = "根据菜单编号查询用户能访问的菜单等信息")
     @RequestMapping("/sys/menu/user")
     public  R menuUser(){
 

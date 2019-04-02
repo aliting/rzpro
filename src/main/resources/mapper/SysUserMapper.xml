@@ -17,6 +17,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="lockdate" property="lockdate"></result>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <!--
@@ -93,7 +94,7 @@
       This element was generated on Mon Mar 25 14:59:37 CST 2019.
     -->
     user_id, username, password, email, mobile, status, create_user_id, create_time, 
-    dept_id, sex
+    dept_id, sex,lockdate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itqf.entity.SysUserExample" >
     <!--
@@ -363,4 +364,47 @@
       sex = #{sex,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
+
+  <select id="findLockAccount" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from sys_user
+    where status=0
+  </select>
+  <update id="unLockAccount" parameterType="com.itqf.entity.SysUser" >
+
+    update sys_user
+    set
+    status = #{status,jdbcType=TINYINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+  <!--
+  List<Map<String,Integer>>     findPieData();
+   {value:335, name:'直接访问'}
+  -->
+  <select id="findPieData" resultType="java.util.Map">
+     select d.`dept_name` name,count(*) value from
+    sys_user u,sys_dept d
+    where u.dept_id = d.id
+    GROUP BY u.dept_id
+  </select>
+
+  <!--    List<Map<String,Object>>  findBarData();
+-->
+  <select id="findBarData" resultType="java.util.Map">
+         select  d.dept_name deptName,
+     sum(case sex  when '男' then 1 else 0 end) boy,
+     sum(case sex  when '女' then 1 else 0 end) girl
+     from   sys_user u ,sys_dept d
+     where u.dept_id = d.id
+     GROUP BY u.dept_id
+  </select>
+
+  <!--findUserForExport-->
+  <select id="findUserForExport" resultType="java.util.Map">
+    select user_id userId, username, email, mobile, create_time createTime, sex
+    from sys_user where status!=0
+  </select>
+
+
 </mapper>

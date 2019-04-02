@@ -11,6 +11,9 @@ import com.itqf.utils.ResultData;
 import com.itqf.utils.ShiroUtils;
 import com.itqf.utils.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -57,6 +60,7 @@ import java.util.Set;
  * @Time: 上午9:19
  */
 @Service(value="sysMenuServiceImpl")
+@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor =RuntimeException.class )//隔离级别  传播行为  rollback-for
 public class SysMenuServiceImpl  implements SysMenuService {
 
     @Resource
