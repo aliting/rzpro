@@ -172,6 +172,7 @@ public class ScheduleJob {
      * @mbggenerated Mon Mar 25 14:59:37 CST 2019
      */
     public String getCronExpression() {
+
         return cronExpression;
     }
 
