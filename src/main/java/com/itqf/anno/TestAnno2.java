@@ -77,6 +77,7 @@ public class TestAnno2 {
 
         TestAnno2 anno2 = new TestAnno2();
         anno2.getConnection();
+        System.out.println("测试分支 啊哈哈哈哈");
 
 
     }
